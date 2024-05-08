@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tic Tac Toe</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    #board {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-gap: 5px;
+        background-color: black;
+    }
+    
+    .cell {
+        width: 100px;
+        height: 100px;
+        background-color: grey;
+        color: aliceblue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2em;
+        cursor: pointer;
+    }
+</style>
+
+</head>
+<body>
+    
+
+<div id="board">
+</div>
+
+<script>
+    
+    const board = document.getElementById('board');
+    let currentPlayer = 'X';
+    let cells = ['', '', '', '', '', '', '', '', ''];
+
+    function checkWinner() {
+        const winCombinations = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+
+        for (let combination of winCombinations) {
+            const [a, b, c] = combination;
+            if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c]) {
+                return cells[a];
+            }
+        }
+
+        return null;
+    }
+
+    function checkDraw() {
+        return cells.every(cell => cell !== '');
+    }
+
+    function handleClick(index) {
+        if (cells[index] === '' && !checkWinner()) {
+            cells[index] = currentPlayer;
+            render();
+            const winner = checkWinner();
+            if (winner) {
+                alert(`Player ${winner} wins!`);
+            } else if (checkDraw()) {
+                alert('It\'s a draw!');
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            }
+        }
+    }
+
+    function render() {
+        board.innerHTML = '';
+        cells.forEach((value, index) => {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.textContent = value;
+            cell.addEventListener('click', () => handleClick(index));
+            board.appendChild(cell);
+        });
+    }
+
+    render();
+</script>
+</body>
+</html>
