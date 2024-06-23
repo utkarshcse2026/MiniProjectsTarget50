@@ -1,0 +1,28 @@
+
+:root {
+    --background-color: white;
+    --text-color: black;
+  }
+  
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .dark-mode {
+    --background-color: black;
+    --text-color: white;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  #mode-toggle {
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
